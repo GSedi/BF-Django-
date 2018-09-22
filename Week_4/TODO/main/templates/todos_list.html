@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block body %}
+    <h1>Todos in "List-1"</h1>
+    <hr>
+    <button class="btn btn-primary">Add</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    <form action="{%url '_filter' 'title' %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Title" class="btn btn-default">
+                    </form> 
+                </td>
+                <td>
+                <form action="{%url '_filter' 'created' %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Created" class="btn btn-default">
+                </form> 
+                </td>
+                <td>
+                     <form action="{%url '_filter' 'due_on' %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Due on" class="btn btn-default">
+                    </form> 
+                </td>
+                <td>
+                    <form action="{%url '_filter' 'owner' %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Owner" class="btn btn-default">
+                    </form> 
+                </td>
+                <td>
+                    <form action="{%url '_filter' 'mark' %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Mark" class="btn btn-default">
+                    </form> 
+                </td>
+            </tr>
+        </thead>
+        <tbody class="t_body">
+            {% for task in tasks %}
+                <tr>
+                    <td>
+                        <a href="#">{{task.title}}</a>
+                    </td>
+                    <td>{{task.created|date:"d/m/Y"}}</td>
+                    <td>{{task.due_on|date:"d/m/Y"}}</td>
+                    <td>{{task.owner.name}}</td>
+                    <td>
+                        <button class="btn btn-info">
+                            {% if task.mark%}
+                                Not Done
+                            {% else %}
+                                Done
+                            {% endif %}
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <p>
+        <form action="{%url 'completed_todos' %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-warning">View Completed Tasks</button>
+            <button class="btn btn-danger">Delete This Task</button>
+        </form>
+    </p>
+{% endblock body %} 

@@ -1,0 +1,14 @@
+.navbar{
+    color: whitesmoke;
+}
+.btn-primary{
+    size: 10px 15px
+}
+
+.t_body tr:hover td{
+    background: lightgray;
+    cursor: pointer;
+}
+
+
+

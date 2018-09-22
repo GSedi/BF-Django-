@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>Completed Todos in "List-1"</h1>
+<hr>
+<button class="btn btn-primary">Add</button>
+<table class="table">
+    <thead>
+        <tr>
+            <td>Title</td>
+            <td>Created</td>
+            <td>Due on</td>
+            <td>Owner</td>
+            <td>Mark</td>
+        </tr>
+    </thead>
+    <tbody class="t_body">
+        {% for task in tasks %}
+            <tr>
+                <td>
+                    <a href="#">{{task.title}}</a>
+                </td>
+                <td>{{task.created|date:"d/m/Y"}}</td>
+                <td>{{task.due_on|date:"d/m/Y"}}</td>
+                <td>{{task.owner.name}}</td>
+                <td>
+                    <button class="btn btn-info">
+                        {% if task.mark%}
+                            Not Done
+                        {% else %}
+                            Done
+                        {% endif %}
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p>
+    <form action="{%url 'todos' %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-warning">View All Tasks</button>
+        <button class="btn btn-danger">Delete This Task</button>
+    </form>
+</p>
+{% endblock body %}
