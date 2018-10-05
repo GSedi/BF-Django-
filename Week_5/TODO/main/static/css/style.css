@@ -1,0 +1,21 @@
+.btn-primary{
+    size: 10px 15px
+}
+
+.t_body tr:hover td{
+    background: lightgray;
+    cursor: pointer;
+}
+
+#filter{
+    cursor: pointer;
+    text-decoration:none;
+}
+
+.thead a
+{
+    display:block;
+    text-decoration:none;
+    color: black;
+}
+
