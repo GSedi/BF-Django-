@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block body %}
+    
+    <h1>{{post.title}}</h1>
+    
+    
+    <h3 class="text-right" >Author: {{post.user.username}}</h3>
+    <p>{{post.content}}</p>
+    {% if post.user.id == user.id and user.is_authenticated%}
+        <form action="{%url 'update_post' post.id%}" method="get" class="form-group" >
+            <button type="submit" class="btn btn-warning">Update</button>
+        </form>
+        <form action="{%url 'delete_post' post.id%}" method="get" class="form-group">
+            
+                <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+   
+    {% endif %}
+
+    <hr>
+    <h4>Comments</h4>
+    <form action="{%url 'add_comment'%}" method="get">
+        <button type="submit" class="btn btn-info">Add Comment</button>
+    </form>
+    {% for comment in comments %}
+
+        <div class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <strong style="color:red">{{comment.user.username}}</strong> 
+                    <span class="text-muted">{{comment.published}}</span>
+                    {% if comment.user.id == user.id and user.is_authenticated%}
+                        <form action="{%url 'update_comment' comment.id%}" method="get" class="form-group" >
+                            <button type="submit" class="btn btn-warning">Update</button>
+                        </form>
+                        <form action="{%url 'delete_comment' comment.id%}" method="get" class="form-group">
+                            
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        {% endif %}
+                </div>
+                <div class="panel-body">
+                    {{comment.content}}
+                </div>
+            </div>
+        </div>
+    
+    {% endfor %}
+
+{% endblock body %}
